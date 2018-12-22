@@ -82,7 +82,7 @@ static ColorBGRA ColorRampInterpolation(float value)
     int index = min(static_cast<size_t>(max(0, integer)), rampSteps - 1);
     const ColorBGRA& prev = colorRamp[index];
     const ColorBGRA& next = colorRamp[index + 1];
-
+    // 8bitのBGRAフォーマット
     // Set color based on a ratio of how closely it matches the surrounding colors.
     UINT32 alpha = static_cast<UINT32>((scaled - integer) * 255);
     UINT32 beta = 255 - alpha;
@@ -332,8 +332,9 @@ SoftwareBitmap^ FrameRenderer::ConvertToDisplayableImage(VideoMediaFrame^ inputF
 
             if (inputBitmap->BitmapPixelFormat == BitmapPixelFormat::Gray16)
             {
-                using namespace std::placeholders;
-
+                using namespace std::placeholders
+                
+                // 深度距離
                 // Use a special pseudo color to render 16 bits depth frame.
                 // Since we must scale the output appropriately we use std::bind to
                 // create a function that takes the depth scale as input but also matches
